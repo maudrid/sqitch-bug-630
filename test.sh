@@ -1,0 +1,10 @@
+docker-compose up -d
+docker exec -ti -u999 sqitch-test bash -c 'cd /tmp && mkdir s630 && cd s630 && sqitch init s630 --engine pg --target postgres'
+docker exec -ti -u999 sqitch-test bash -c 'cd /tmp/s630/ && sqitch status'
+docker exec -ti -u999 sqitch-test bash -c 'cd /tmp/s630/ && sqitch add test1 -m "make a new version"'
+docker exec -ti -u999 sqitch-test bash -c 'cd /tmp/s630/ && sqitch deploy'
+docker exec -ti -u999 sqitch-test bash -c 'cd /tmp/s630/ && sqitch tag myTag -m "a new tag"'
+docker exec -ti -u999 sqitch-test bash -c 'cd /tmp/s630/ && sqitch deploy'
+docker exec -ti -u999 sqitch-test bash -c 'cd /tmp/s630/ && sqitch status'
+docker exec -ti -u999 sqitch-test bash -c 'cd /tmp/s630/ && sqitch rework test1 -m "reworking"'
+docker exec -ti -u999 sqitch-test bash -c 'cd /tmp/s630/ && sqitch deploy'

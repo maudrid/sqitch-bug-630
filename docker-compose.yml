@@ -1,0 +1,18 @@
+version: "3.8"
+
+services:
+  sqitch-test:
+    build: ./
+    container_name: sqitch-test
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "postgres"
+      POSTGRES_DB: "postgres"
+    healthcheck:
+      test: ["CMD-SHELL", "sh -c 'pg_isready -U postgres'"]
+      interval: 30s
+      timeout: 30s
+      retries: 3
+    restart: "unless-stopped"
